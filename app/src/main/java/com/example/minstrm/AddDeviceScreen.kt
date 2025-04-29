@@ -1,5 +1,13 @@
 package com.example.minstrm
 
+import com.example.minstrm.parseLLMResponse
+import com.example.minstrm.DeviceInfo
+import android.content.Context
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
@@ -15,23 +23,41 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+
 @Preview
 @Composable
 fun AddDeviceScreen() {
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+
     var produkt by remember { mutableStateOf("") }
     var model by remember { mutableStateOf("") }
     var effekt by remember { mutableStateOf("") }
     var estimeretTid by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
-            val info = parseLLMResponse(it)
-            produkt = info.produkt
-            model = info.model
-            effekt = info.effekt
-            estimeretTid = info.estimeretTid
+            isLoading = true
+            scope.launch {
+                try {
+                    val info = parseLLMResponse(context, it)
+                    produkt = info.produkt
+                    model = info.model
+                    effekt = info.effekt
+                    estimeretTid = info.estimeretTid
+                } catch (e: Exception) {
+                    produkt = "Fejl"
+                    model = "-"
+                    effekt = "-"
+                    estimeretTid = "-"
+                } finally {
+                    isLoading = false
+                }
+            }
         }
     }
+
 
     Column(
         modifier = Modifier
@@ -63,15 +89,42 @@ fun AddDeviceScreen() {
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        OutlinedTextField(value = produkt, onValueChange = { produkt = it }, label = { Text("Produkt") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = model, onValueChange = { model = it }, label = { Text("Model") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = effekt, onValueChange = { effekt = it }, label = { Text("Effekt") }, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = estimeretTid, onValueChange = { estimeretTid = it }, label = { Text("Estimeret Tid") }, modifier = Modifier.fillMaxWidth())
+        if (isLoading) {
+            CircularProgressIndicator(modifier = Modifier.padding(8.dp))
+        }
+
+        OutlinedTextField(
+            value = produkt,
+            onValueChange = { produkt = it },
+            label = { Text("Produkt") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = model,
+            onValueChange = { model = it },
+            label = { Text("Model") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = effekt,
+            onValueChange = { effekt = it },
+            label = { Text("Effekt") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        OutlinedTextField(
+            value = estimeretTid,
+            onValueChange = { estimeretTid = it },
+            label = { Text("Estimeret Tid") },
+            modifier = Modifier.fillMaxWidth()
+        )
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { /* Submit logic */ },
+            onClick = { /* Submit logic her */ },
             modifier = Modifier
                 .fillMaxWidth()
                 .height(55.dp),
