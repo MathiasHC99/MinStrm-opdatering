@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.minstrm.app-mergeDebugResources-46:/values-hy/values-hy.xml",
+            "outputFile": "com.example.minstrm.app-mergeDebugResources-48:/values-hy/values-hy.xml",
             "map": [
                 {
                     "source": "C:\\Users\\mega-\\.gradle\\caches\\8.11.1\\transforms\\9a42abb6d6494ce25d6213be6f37263e\\transformed\\core-1.16.0\\res\\values-hy\\values-hy.xml",

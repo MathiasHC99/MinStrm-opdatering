@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.minstrm.app-mergeDebugResources-46:/values-uk/values-uk.xml",
+            "outputFile": "com.example.minstrm.app-mergeDebugResources-48:/values-uk/values-uk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\mega-\\.gradle\\caches\\8.11.1\\transforms\\1722e60b3e06639d9e378fb2f4330d38\\transformed\\ui-release\\res\\values-uk\\values-uk.xml",
