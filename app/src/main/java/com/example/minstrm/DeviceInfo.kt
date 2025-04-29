@@ -1,5 +1,7 @@
 package com.example.minstrm
 
+
+import okhttp3.MediaType.Companion.toMediaType
 import android.util.Log
 import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.Context
@@ -20,71 +22,97 @@ data class DeviceInfo(
 )
 
 suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = withContext(Dispatchers.IO) {
-    val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri)
-    val imageBytes = inputStream?.readBytes()
-    inputStream?.close()
+    val client = OkHttpClient()
 
-    if (imageBytes == null) throw IllegalArgumentException("Billedet kunne ikke læses")
+    val inputStream = context.contentResolver.openInputStream(imageUri)
+        ?: throw Exception("Kunne ikke åbne billede")
+    val imageBytes = inputStream.readBytes()
+    val imageBase64 = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
 
-    val base64Image = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
+    val systemPrompt = """
+        Du er en billedmodel, som modtager billeder af husholdningsapparater som f.eks. vaskemaskiner, kaffemaskiner, elkedler osv.
+        Din opgave er at identificere:
+        - produktnavn eller type (f.eks. vaskemaskine, elkedel)
+        - modelnavn eller nummer (hvis det kan findes, aflæses eller gættes)
+        - et kvalificeret gæt på effekt i watt (effekt), baseret på enhedens type og mærke
+        - et kvalificeret gæt på estimeret programtid i minutinterval (estimeretTid)
+
+        Returnér udelukkende et JSON-objekt med disse nøgler: produkt, model, effekt, estimeretTid.
+        Hvis du ikke er helt sikker, så brug det mest sandsynlige gæt. Brug tom streng kun hvis der slet intet kan udledes.
+    """.trimIndent()
+
+    val messages = """
+        [
+          {
+            "role": "system",
+            "content": ${JSONObject.quote(systemPrompt)}
+          },
+          {
+            "role": "user",
+            "content": [
+              {
+                "type": "image_url",
+                "image_url": {
+                  "url": "data:image/jpeg;base64,$imageBase64",
+                  "detail": "low"
+                }
+              }
+            ]
+          }
+        ]
+    """.trimIndent()
 
     val json = """
         {
           "model": "gpt-4o",
-          "messages": [
-            {
-              "role": "user",
-              "content": [
-                { "type": "text", "text": "Uddrag modelnummer, produktnavn, effekt (watt), og typisk programtid fra dette billede. Svar i kun følgende JSON-format uden forklaringer: { \"produkt\": \"\", \"model\": \"\", \"effekt\": \"\", \"estimeretTid\": \"\" }" },
-                { "type": "image_url", "image_url": { "url": "data:image/jpeg;base64,$base64Image" } }
-              ]
-            }
-          ]
+          "messages": $messages,
+          "temperature": 0.2
         }
     """.trimIndent()
 
-    val body = RequestBody.create("application/json".toMediaTypeOrNull(), json)
-
+    val body = json.toRequestBody("application/json".toMediaType())
     val request = Request.Builder()
         .url("https://api.openai.com/v1/chat/completions")
-        .header("Authorization", "Bearer ${BuildConfig.OPENAI_API_KEY}")
         .post(body)
+        .addHeader("Authorization", "Bearer ${BuildConfig.OPENAI_API_KEY}")
         .build()
 
-    val client = OkHttpClient()
     val response = client.newCall(request).execute()
+    val responseBody = response.body?.string()
 
-    if (!response.isSuccessful) throw Exception("OpenAI API fejl: ${response.code}")
+    if (!response.isSuccessful || responseBody == null) {
+        Log.e("OpenAI_API_ERROR", "Fejl ved forespørgsel: ${response.code}")
+        throw Exception("Fejl ved OpenAI API")
+    }
 
-    val responseBody = response.body?.string() ?: throw Exception("Tomt svar fra API")
     Log.d("OpenAI_RESPONSE", responseBody)
 
-    val responseJson = JSONObject(responseBody)
-    val content = responseJson
-        .getJSONArray("choices")
-        .getJSONObject(0)
-        .getJSONObject("message")
-        .getString("content")
-
-    Log.d("OpenAI_CONTENT", content)
-
-    // Rens evt. markdown ```json ... ``` omkring svaret
-    val cleanedContent = content
-        .removePrefix("```json")
-        .removePrefix("```")
-        .removeSuffix("```")
-        .trim()
-
     try {
-        val parsed = JSONObject(cleanedContent)
+        val jsonResponse = JSONObject(responseBody)
+        val content = jsonResponse
+            .getJSONArray("choices")
+            .getJSONObject(0)
+            .getJSONObject("message")
+            .getString("content")
+
+        Log.d("OpenAI_CONTENT", content)
+
+        val cleanedJson = content
+            .removePrefix("```json")
+            .removePrefix("```")
+            .removeSuffix("```")
+            .trim()
+
+        val parsed = JSONObject(cleanedJson)
+
         return@withContext DeviceInfo(
-            produkt = parsed.getString("produkt"),
-            model = parsed.getString("model"),
-            effekt = parsed.getString("effekt"),
-            estimeretTid = parsed.getString("estimeretTid")
+            produkt = parsed.optString("produkt", ""),
+            model = parsed.optString("model", ""),
+            effekt = parsed.optString("effekt", ""),
+            estimeretTid = parsed.optString("estimeretTid", "")
         )
     } catch (e: Exception) {
-        Log.e("OpenAI_API_ERROR", "Ugyldigt JSON-svar: $cleanedContent", e)
+        Log.e("OpenAI_API_ERROR", "Fejl under OpenAI-kald", e)
         throw Exception("OpenAI returnerede ikke gyldig JSON.")
     }
 }
