@@ -10,6 +10,8 @@ import kotlinx.coroutines.withContext
 import okhttp3.*
 import org.json.JSONObject
 import java.io.InputStream
+import okhttp3.RequestBody.Companion.toRequestBody
+
 
 private const val OPENAI_API_KEY = "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" // <- udskift med din egen nøgle
 
@@ -45,7 +47,8 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
         }
     """.trimIndent()
 
-    val body = RequestBody.create("application/json".toMediaTypeOrNull(), json)
+    val body = json.toRequestBody("application/json".toMediaTypeOrNull())
+
 
     val request = Request.Builder()
         .url("https://api.openai.com/v1/chat/completions")

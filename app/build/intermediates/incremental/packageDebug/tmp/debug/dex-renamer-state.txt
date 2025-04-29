@@ -1,4 +1,4 @@
-#Tue Apr 29 10:54:10 CEST 2025
+#Tue Apr 29 11:59:14 CEST 2025
 base.0=C\:\\Users\\mega-\\AndroidStudioProjects\\MinStrm-opdatering\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\mega-\\AndroidStudioProjects\\MinStrm-opdatering\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\mega-\\AndroidStudioProjects\\MinStrm-opdatering\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex

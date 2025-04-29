@@ -5,7 +5,6 @@ import com.example.minstrm.DeviceInfo
 import android.content.Context
 import android.net.Uri
 import androidx.compose.ui.platform.LocalContext
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -19,12 +18,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 
-@Preview
 @Composable
 fun AddDeviceScreen() {
     val context = LocalContext.current
