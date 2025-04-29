@@ -1,5 +1,6 @@
 package com.example.minstrm
 
+import android.util.Log
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -46,6 +47,7 @@ fun AddDeviceScreen() {
                     effekt = info.effekt
                     estimeretTid = info.estimeretTid
                 } catch (e: Exception) {
+                    Log.e("OpenAI_API_ERROR", "Fejl under OpenAI-kald", e)
                     produkt = "Fejl"
                     model = "-"
                     effekt = "-"

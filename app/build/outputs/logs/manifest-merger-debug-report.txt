@@ -1,11 +1,13 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-28:12
-INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-28:12
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-31:12
+INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:1-31:12
 MERGED from [io.coil-kt:coil-compose:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\bd8102ad48f81af337aa88106e3d702a\transformed\coil-compose-2.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [io.coil-kt:coil-compose-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\2fb3acf4da23f4e4f300120e532b7adf\transformed\coil-compose-base-2.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:2:1-7:12
+MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.accompanist:accompanist-drawablepainter:0.30.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\6433e488a853d87a239883a9dabc73f2\transformed\accompanist-drawablepainter-0.30.1\AndroidManifest.xml:17:1-25:12
 MERGED from [androidx.compose.material3:material3-android:1.3.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\f05ef868ca0f438ebd98b29812d4e3a6\transformed\material3-release\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.compose.material:material-android:1.7.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\4aa435fc941522bda8f431371003efd1\transformed\material-release\AndroidManifest.xml:2:1-7:12
@@ -28,8 +30,6 @@ MERGED from [androidx.compose.ui:ui-test-manifest:1.7.0] C:\Users\mega-\.gradle\
 MERGED from [androidx.activity:activity:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\fdc69ff0892fcc2f8cb1a2edba8ee609\transformed\activity-1.10.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.activity:activity-ktx:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\dbc5a82379020a59dac25579c6477a10\transformed\activity-ktx-1.10.1\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.activity:activity-compose:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\44945ab54c3c093ccab1d834a9605de1\transformed\activity-compose-1.10.1\AndroidManifest.xml:2:1-7:12
-MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:2:1-7:12
-MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\50f8bd46ebe8d4f1e383c76308b17c26\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.autofill:autofill:1.0.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\65049f970678ed445dbf29acaa5226fc\transformed\autofill-1.0.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.graphics:graphics-path:1.0.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\1ab9a914a66e5faecca1870fcb3deb2a\transformed\graphics-path-1.0.1\AndroidManifest.xml:2:1-7:12
@@ -70,9 +70,13 @@ MERGED from [androidx.core:core-viewtree:1.0.0] C:\Users\mega-\.gradle\caches\8.
 		INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:5:5-66
+	android:name
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:5:22-64
 application
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:5:5-26:19
-INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:5:5-26:19
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:8:5-29:19
+INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:8:5-29:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.7.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\c9736fdf0fb2243f2547120df2dfc721\transformed\ui-tooling-release\AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.compose.ui:ui-tooling-android:1.7.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\c9736fdf0fb2243f2547120df2dfc721\transformed\ui-tooling-release\AndroidManifest.xml:22:5-26:19
 MERGED from [androidx.compose.ui:ui-test-manifest:1.7.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\29891f8b28b8cddc69a28c96172dde33\transformed\ui-test-manifest-1.7.0\AndroidManifest.xml:22:5-26:19
@@ -94,43 +98,43 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] C:\Users\me
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.16.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\9a42abb6d6494ce25d6213be6f37263e\transformed\core-1.16.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:12:9-35
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:15:9-35
 	android:label
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:10:9-41
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:13:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:8:9-54
-	android:roundIcon
 		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:11:9-54
+	android:roundIcon
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:14:9-54
 	tools:targetApi
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:14:9-29
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:17:9-29
 	android:icon
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:9:9-43
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:12:9-43
 	android:allowBackup
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:6:9-35
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:9:9-35
 	android:theme
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:13:9-46
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:16:9-46
 	android:dataExtractionRules
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:7:9-65
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:10:9-65
 activity#com.example.minstrm.MainActivity
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:15:9-25:20
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:18:9-28:20
 	android:label
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:18:13-45
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:21:13-45
 	android:exported
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:17:13-36
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:20:13-36
 	android:theme
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:19:13-50
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:22:13-50
 	android:name
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:16:13-41
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:19:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:20:13-24:29
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:23:13-27:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:21:17-69
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:24:17-69
 	android:name
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:21:25-66
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:24:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:23:17-77
+ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:26:17-77
 	android:name
-		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:23:27-74
+		ADDED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml:26:27-74
 uses-sdk
 INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\mega-\AndroidStudioProjects\MinStrm-opdatering\app\src\main\AndroidManifest.xml
@@ -139,6 +143,10 @@ MERGED from [io.coil-kt:coil-compose:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1
 MERGED from [io.coil-kt:coil-compose:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\bd8102ad48f81af337aa88106e3d702a\transformed\coil-compose-2.4.0\AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-compose-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\2fb3acf4da23f4e4f300120e532b7adf\transformed\coil-compose-base-2.4.0\AndroidManifest.xml:5:5-44
 MERGED from [io.coil-kt:coil-compose-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\2fb3acf4da23f4e4f300120e532b7adf\transformed\coil-compose-base-2.4.0\AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:5:5-44
+MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:5:5-44
 MERGED from [com.google.accompanist:accompanist-drawablepainter:0.30.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\6433e488a853d87a239883a9dabc73f2\transformed\accompanist-drawablepainter-0.30.1\AndroidManifest.xml:21:5-23:42
 MERGED from [com.google.accompanist:accompanist-drawablepainter:0.30.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\6433e488a853d87a239883a9dabc73f2\transformed\accompanist-drawablepainter-0.30.1\AndroidManifest.xml:21:5-23:42
 MERGED from [androidx.compose.material3:material3-android:1.3.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\f05ef868ca0f438ebd98b29812d4e3a6\transformed\material3-release\AndroidManifest.xml:20:5-44
@@ -183,10 +191,6 @@ MERGED from [androidx.activity:activity-ktx:1.10.1] C:\Users\mega-\.gradle\cache
 MERGED from [androidx.activity:activity-ktx:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\dbc5a82379020a59dac25579c6477a10\transformed\activity-ktx-1.10.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.activity:activity-compose:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\44945ab54c3c093ccab1d834a9605de1\transformed\activity-compose-1.10.1\AndroidManifest.xml:5:5-44
 MERGED from [androidx.activity:activity-compose:1.10.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\44945ab54c3c093ccab1d834a9605de1\transformed\activity-compose-1.10.1\AndroidManifest.xml:5:5-44
-MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:5:5-44
-MERGED from [io.coil-kt:coil:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\89d605218f87eef88c9c95314cf52c6e\transformed\coil-2.4.0\AndroidManifest.xml:5:5-44
-MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:5:5-44
-MERGED from [io.coil-kt:coil-base:2.4.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\d3bf6f1923299eb5fb86758cc9d29fe7\transformed\coil-base-2.4.0\AndroidManifest.xml:5:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\50f8bd46ebe8d4f1e383c76308b17c26\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.appcompat:appcompat-resources:1.6.1] C:\Users\mega-\.gradle\caches\8.11.1\transforms\50f8bd46ebe8d4f1e383c76308b17c26\transformed\appcompat-resources-1.6.1\AndroidManifest.xml:20:5-44
 MERGED from [androidx.autofill:autofill:1.0.0] C:\Users\mega-\.gradle\caches\8.11.1\transforms\65049f970678ed445dbf29acaa5226fc\transformed\autofill-1.0.0\AndroidManifest.xml:20:5-22:41

@@ -1,20 +1,16 @@
 package com.example.minstrm
 
-// Husk imports:
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import android.util.Log
+import okhttp3.RequestBody.Companion.toRequestBody
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.*
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
 import java.io.InputStream
-import okhttp3.RequestBody.Companion.toRequestBody
-
-
-private const val OPENAI_API_KEY = "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" // <- udskift med din egen nøgle
-
 
 data class DeviceInfo(
     val produkt: String,
@@ -47,12 +43,11 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
         }
     """.trimIndent()
 
-    val body = json.toRequestBody("application/json".toMediaTypeOrNull())
-
+    val body = RequestBody.create("application/json".toMediaTypeOrNull(), json)
 
     val request = Request.Builder()
         .url("https://api.openai.com/v1/chat/completions")
-        .header("Authorization", "Bearer $OPENAI_API_KEY")
+        .header("Authorization", "Bearer ${BuildConfig.OPENAI_API_KEY}")
         .post(body)
         .build()
 
@@ -62,6 +57,8 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
     if (!response.isSuccessful) throw Exception("OpenAI API fejl: ${response.code}")
 
     val responseBody = response.body?.string() ?: throw Exception("Tomt svar fra API")
+    Log.d("OpenAI_RESPONSE", responseBody)
+
     val responseJson = JSONObject(responseBody)
     val content = responseJson
         .getJSONArray("choices")
@@ -69,12 +66,25 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
         .getJSONObject("message")
         .getString("content")
 
-    val parsed = JSONObject(content)
+    Log.d("OpenAI_CONTENT", content)
 
-    return@withContext DeviceInfo(
-        produkt = parsed.getString("produkt"),
-        model = parsed.getString("model"),
-        effekt = parsed.getString("effekt"),
-        estimeretTid = parsed.getString("estimeretTid")
-    )
+    // Rens evt. markdown ```json ... ``` omkring svaret
+    val cleanedContent = content
+        .removePrefix("```json")
+        .removePrefix("```")
+        .removeSuffix("```")
+        .trim()
+
+    try {
+        val parsed = JSONObject(cleanedContent)
+        return@withContext DeviceInfo(
+            produkt = parsed.getString("produkt"),
+            model = parsed.getString("model"),
+            effekt = parsed.getString("effekt"),
+            estimeretTid = parsed.getString("estimeretTid")
+        )
+    } catch (e: Exception) {
+        Log.e("OpenAI_API_ERROR", "Ugyldigt JSON-svar: $cleanedContent", e)
+        throw Exception("OpenAI returnerede ikke gyldig JSON.")
+    }
 }
