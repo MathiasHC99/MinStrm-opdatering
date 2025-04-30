@@ -1,9 +1,10 @@
-package com.example.minstrm
+package com.example.minstrm.AIapi
 
 import android.content.Context
 import android.net.Uri
 import android.util.Base64
 import android.util.Log
+import com.example.minstrm.BuildConfig
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.Request

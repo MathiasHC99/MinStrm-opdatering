@@ -1,12 +1,13 @@
-package com.example.minstrm
+package com.example.minstrm.uipackage.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -14,12 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.minstrm.model.Device
 
 @Composable
 fun PlanScreen(
     devices: List<Device>,
     onAddDeviceClick: () -> Unit,
-    onEditClick: (Int) -> Unit
+    onEditClick: (Int) -> Unit,
+    onDeleteClick: (Int) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -54,7 +57,11 @@ fun PlanScreen(
             Spacer(modifier = Modifier.height(8.dp))
 
             devices.forEachIndexed { idx, device ->
-                DeviceCard(device = device, onEditClick = { onEditClick(idx) })
+                DeviceCard(
+                    device = device,
+                    onEditClick = { onEditClick(idx) },
+                    onDeleteClick = { onDeleteClick(idx) }
+                )
             }
         }
     }
@@ -84,7 +91,11 @@ fun SmartTilfoejCard(onAddDeviceClick: () -> Unit) {
 }
 
 @Composable
-fun DeviceCard(device: Device, onEditClick: () -> Unit) {
+fun DeviceCard(
+    device: Device,
+    onEditClick: () -> Unit,
+    onDeleteClick: () -> Unit
+) {
     Card(
         modifier = Modifier
             .padding(horizontal = 16.dp, vertical = 8.dp)
@@ -103,8 +114,20 @@ fun DeviceCard(device: Device, onEditClick: () -> Unit) {
             Text("Effekt: ${device.effekt}", fontWeight = FontWeight.SemiBold)
             Text("Tid: ${device.estimeretTid}", fontWeight = FontWeight.SemiBold)
             Spacer(modifier = Modifier.height(8.dp))
-            TextButton(onClick = onEditClick) {
-                Text("Rediger enhed")
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextButton(onClick = onEditClick) {
+                    Text("Rediger enhed")
+                }
+                IconButton(onClick = onDeleteClick) {
+                    Icon(
+                        imageVector = Icons.Default.Delete,
+                        contentDescription = "Slet enhed",
+                        tint = Color.Red
+                    )
+                }
             }
         }
     }

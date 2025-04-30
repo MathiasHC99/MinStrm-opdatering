@@ -1,4 +1,4 @@
-package com.example.minstrm
+package com.example.minstrm.uipackage.screens
 
 import android.Manifest
 import android.content.Context
@@ -24,6 +24,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import coil.compose.rememberAsyncImagePainter
+import com.example.minstrm.AIapi.DeviceInfo
+import com.example.minstrm.AIapi.parseLLMResponse
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -114,6 +116,7 @@ fun AddDeviceScreen(
     }
 
     // take low‐res preview
+    // _____________________________NEVER USED SHOULD WE DELETE? ________________________________________
     val previewLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
@@ -124,7 +127,7 @@ fun AddDeviceScreen(
             // then same parsing as above…
         }
     }
-
+// _______________________________________________________________________________________________
     fun createImageFile(): File {
         val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)

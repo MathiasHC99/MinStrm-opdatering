@@ -1,4 +1,4 @@
-package com.example.minstrm
+package com.example.minstrm.model
 
 data class Device(
     val produkt: String,
