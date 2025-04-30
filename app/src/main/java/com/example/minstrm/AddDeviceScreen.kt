@@ -1,5 +1,12 @@
 package com.example.minstrm
 
+import android.os.Environment
+import androidx.core.content.FileProvider
+import java.io.File
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+
 import android.util.Log
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -35,7 +42,9 @@ fun AddDeviceScreen() {
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     val deviceList = remember { mutableStateListOf<DeviceInfo>() }
 
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    var tempPhotoUri by remember { mutableStateOf<Uri?>(null) }
+
+    val pickImageLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
             selectedImageUri = it
             isLoading = true
@@ -59,6 +68,38 @@ fun AddDeviceScreen() {
         }
     }
 
+    val takePhotoLauncher = rememberLauncherForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+        if (success) {
+            tempPhotoUri?.let { uri ->
+                selectedImageUri = uri
+                isLoading = true
+                scope.launch {
+                    try {
+                        val info = parseLLMResponse(context, uri)
+                        produkt = info.produkt
+                        model = info.model
+                        effekt = info.effekt
+                        estimeretTid = info.estimeretTid
+                    } catch (e: Exception) {
+                        Log.e("OpenAI_API_ERROR", "Fejl under OpenAI-kald", e)
+                        produkt = "Fejl"
+                        model = "-"
+                        effekt = "-"
+                        estimeretTid = "-"
+                    } finally {
+                        isLoading = false
+                    }
+                }
+            }
+        }
+    }
+
+    fun createImageFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
+    }
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -77,12 +118,32 @@ fun AddDeviceScreen() {
                     Spacer(Modifier.height(4.dp))
                     Text("Tilføj enheder ved blot at tage et billede", color = Color.White)
                     Spacer(Modifier.height(12.dp))
-                    Button(
-                        onClick = { launcher.launch("image/*") },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White),
-                        shape = RoundedCornerShape(8.dp)
-                    ) {
-                        Text("Prøv det", color = Color(0xFF007BFF))
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Button(
+                            onClick = { pickImageLauncher.launch("image/*") },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text("Vælg billede", color = Color(0xFF007BFF))
+                        }
+                        Button(
+                            onClick = {
+                                val photoFile = createImageFile()
+                                tempPhotoUri = FileProvider.getUriForFile(
+                                    context,
+                                    "${context.packageName}.fileprovider",
+                                    photoFile
+                                )
+                                tempPhotoUri?.let { uri ->
+                                    takePhotoLauncher.launch(uri)
+                                }
+
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                            shape = RoundedCornerShape(8.dp)
+                        ) {
+                            Text("Brug kamera", color = Color(0xFF007BFF))
+                        }
                     }
                 }
             }

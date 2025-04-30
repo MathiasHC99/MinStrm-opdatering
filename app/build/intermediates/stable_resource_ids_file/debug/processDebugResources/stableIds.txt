@@ -1,3 +1,4 @@
+com.example.minstrm:xml/file_paths = 0x7f0c0002
 com.example.minstrm:styleable/StateListDrawable = 0x7f0b0009
 com.example.minstrm:styleable/GradientColorItem = 0x7f0b0008
 com.example.minstrm:styleable/GradientColor = 0x7f0b0007

@@ -10,9 +10,8 @@ import android.util.Base64
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.*
-import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import org.json.JSONObject
-import java.io.InputStream
+
 
 data class DeviceInfo(
     val produkt: String,
