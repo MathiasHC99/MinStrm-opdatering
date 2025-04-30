@@ -1,12 +1,13 @@
 package com.example.minstrm
 
+import android.graphics.Bitmap
+import androidx.compose.ui.graphics.asImageBitmap
 import android.os.Environment
 import androidx.core.content.FileProvider
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
 import android.util.Log
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -28,11 +29,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberAsyncImagePainter
 import kotlinx.coroutines.launch
+import android.Manifest
+import android.os.Build
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+
 
 @Composable
 fun AddDeviceScreen() {
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
+
+    val permissionLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.RequestPermission()
+    ) { isGranted ->
+        if (!isGranted) {
+            Toast.makeText(context, "Tilladelse til billeder kræves", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES)
+        }
+    }
+
+
 
     var produkt by remember { mutableStateOf("") }
     var model by remember { mutableStateOf("") }
@@ -41,8 +63,27 @@ fun AddDeviceScreen() {
     var isLoading by remember { mutableStateOf(false) }
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
     val deviceList = remember { mutableStateListOf<DeviceInfo>() }
-
+    val imageBitmap = remember { mutableStateOf<Bitmap?>(null) }
     var tempPhotoUri by remember { mutableStateOf<Uri?>(null) }
+
+    fun saveBitmapToFile(context: android.content.Context, bitmap: Bitmap): Uri? {
+        return try {
+            val fileName = "bitmap_${System.currentTimeMillis()}.jpg"
+            val file = File(context.cacheDir, fileName)
+            val outputStream = file.outputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+            outputStream.flush()
+            outputStream.close()
+            FileProvider.getUriForFile(
+                context,
+                "${context.packageName}.fileprovider",
+                file
+            )
+        } catch (e: Exception) {
+            Log.e("BitmapSave", "Fejl ved gemning af bitmap", e)
+            null
+        }
+    }
 
     val pickImageLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         uri?.let {
@@ -94,12 +135,42 @@ fun AddDeviceScreen() {
         }
     }
 
+    val previewLauncher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.TakePicturePreview()
+    ) { bitmap ->
+        if (bitmap != null) {
+            imageBitmap.value = bitmap
+            val uri = saveBitmapToFile(context, bitmap)
+            uri?.let {
+                selectedImageUri = it
+                isLoading = true
+                scope.launch {
+                    try {
+                        val info = parseLLMResponse(context, it)
+                        produkt = info.produkt
+                        model = info.model
+                        effekt = info.effekt
+                        estimeretTid = info.estimeretTid
+                    } catch (e: Exception) {
+                        Log.e("OpenAI_API_ERROR", "Fejl under OpenAI-kald", e)
+                        produkt = "Fejl"
+                        model = "-"
+                        effekt = "-"
+                        estimeretTid = "-"
+                    } finally {
+                        isLoading = false
+                    }
+                }
+            }
+        }
+    }
+
+
     fun createImageFile(): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir)
     }
-
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -144,6 +215,9 @@ fun AddDeviceScreen() {
                         ) {
                             Text("Brug kamera", color = Color(0xFF007BFF))
                         }
+
+
+
                     }
                 }
             }
@@ -164,6 +238,18 @@ fun AddDeviceScreen() {
                         .padding(vertical = 8.dp)
                 )
             }
+
+            imageBitmap.value?.let { bitmap ->
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = "Kamerabillede",
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(vertical = 8.dp)
+                )
+            }
+
 
             OutlinedTextField(
                 value = produkt,
