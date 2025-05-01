@@ -31,7 +31,8 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
     val systemPrompt = """
         Du er en billedmodel, som modtager billeder af elektriske apparater som f.eks. vaskemaskiner, kaffemaskiner, elkedler, bærbarer, powerbanks osv.
         Din opgave er at identificere:
-        - produktnavn eller type (f.eks. Vaskemaskine, Elkedel)
+        - produktnavn eller type, med en tilsvarende emoji før navnet(f.eks. 🧺 Vaskemaskine, 🚲 Elcykel, 🎧 Høretelefoner) 
+
         - modelnavn eller nummer (hvis det kan findes, aflæses eller gættes)
         - et kvalificeret gæt på effekt i watt (effekt), baseret på enhedens type og mærke
         - et kvalificeret gæt på estimeret programtid i minutinterval (estimeretTid)

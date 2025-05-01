@@ -32,6 +32,7 @@ import kotlinx.coroutines.launch
 import android.Manifest
 import android.os.Build
 import android.widget.Toast
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.ui.platform.LocalContext
 
 
@@ -255,6 +256,15 @@ fun AddDeviceScreen() {
                 value = produkt,
                 onValueChange = { produkt = it },
                 label = { Text("Produkt") },
+                trailingIcon = {
+                    if (produkt.isBlank()) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = "Mangler input",
+                            tint = Color.Yellow
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -262,6 +272,15 @@ fun AddDeviceScreen() {
                 value = model,
                 onValueChange = { model = it },
                 label = { Text("Model") },
+                trailingIcon = {
+                    if (model.isBlank()) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = "Mangler input",
+                            tint = Color.Yellow
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -269,6 +288,15 @@ fun AddDeviceScreen() {
                 value = effekt,
                 onValueChange = { effekt = it },
                 label = { Text("Effekt") },
+                trailingIcon = {
+                    if (effekt.isBlank()) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = "Mangler input",
+                            tint = Color.Yellow
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
@@ -276,6 +304,15 @@ fun AddDeviceScreen() {
                 value = estimeretTid,
                 onValueChange = { estimeretTid = it },
                 label = { Text("Estimeret Tid") },
+                trailingIcon = {
+                    if (estimeretTid.isBlank()) {
+                        Icon(
+                            imageVector = Icons.Default.Warning,
+                            contentDescription = "Mangler input",
+                            tint = Color.Yellow
+                        )
+                    }
+                },
                 modifier = Modifier.fillMaxWidth()
             )
 
