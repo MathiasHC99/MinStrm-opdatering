@@ -1,5 +1,7 @@
 package com.example.minstrm.uipackage.navigation
 
+// Mathias HC
+
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
@@ -7,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.minstrm.AIapi.DeviceInfo
+import com.example.minstrm.aiAPI.DeviceInfo
 import com.example.minstrm.uipackage.screens.AddDeviceScreen
 import com.example.minstrm.uipackage.screens.PlanScreen
 import com.example.minstrm.model.Device
@@ -72,7 +74,7 @@ fun AppNavigation() {
         }
     }
 }
-
+// DeviceInfo renamed to APIConnection
 // Converters between Device and DeviceInfo
 fun DeviceInfo.toDevice(): Device = Device(
     produkt = produkt,

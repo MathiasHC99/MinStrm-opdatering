@@ -1,5 +1,7 @@
 package com.example.minstrm.uipackage.screens
 
+// Mathias HC
+
 import android.Manifest
 import android.content.Context
 import android.graphics.Bitmap
@@ -24,8 +26,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.FileProvider
 import coil.compose.rememberAsyncImagePainter
-import com.example.minstrm.AIapi.DeviceInfo
-import com.example.minstrm.AIapi.parseLLMResponse
+import com.example.minstrm.aiAPI.DeviceInfo
+import com.example.minstrm.aiAPI.parseLLMResponse
 import kotlinx.coroutines.launch
 import java.io.File
 import java.text.SimpleDateFormat
@@ -115,19 +117,7 @@ fun AddDeviceScreen(
         }
     }
 
-    // take low‐res preview
-    // _____________________________NEVER USED SHOULD WE DELETE? ________________________________________
-    val previewLauncher = rememberLauncherForActivityResult(
-        contract = ActivityResultContracts.TakePicturePreview()
-    ) { bitmap ->
-        bitmap?.let {
-            imageBitmap.value = it
-            val uri = saveBitmapToFile(context, it)
-            uri?.also { selectedImageUri = it }
-            // then same parsing as above…
-        }
-    }
-// _______________________________________________________________________________________________
+
     fun createImageFile(): File {
         val ts = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
@@ -250,20 +240,5 @@ fun AddDeviceScreen(
         ) {
             Text(if (initialDevice == null) "Tilføj enhed" else "Opdater enhed", color = Color.White)
         }
-    }
-}
-
-// helper to write bitmap to cache and get Uri
-private fun saveBitmapToFile(context: Context, bitmap: Bitmap): Uri? {
-    return try {
-        val fileName = "bitmap_${System.currentTimeMillis()}.jpg"
-        val file = File(context.cacheDir, fileName)
-        file.outputStream().use { out ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out)
-        }
-        FileProvider.getUriForFile(context, "${context.packageName}.fileprovider", file)
-    } catch (e: Exception) {
-        Log.e("BitmapSave", "Fejl ved gemning af bitmap", e)
-        null
     }
 }

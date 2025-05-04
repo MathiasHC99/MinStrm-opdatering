@@ -1,4 +1,6 @@
-package com.example.minstrm.AIapi
+package com.example.minstrm.aiAPI
+
+// Mike og Johan for det meste
 
 import android.content.Context
 import android.net.Uri
