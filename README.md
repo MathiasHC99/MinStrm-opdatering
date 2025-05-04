@@ -13,8 +13,8 @@
 
 ```
 com.example.minstrm
-├── data
-│   └── APIConnection.kt         # LLM image parsing + DeviceInfo DTO
+├── aiAPI
+│   └── APIConnection.kt         # LLM image parsing + APIConnection DTO
 │
 ├── model
 │   └── Device.kt                # Pure data class representing a device
@@ -24,10 +24,10 @@ com.example.minstrm
 │
 ├── ui
 │   ├── navigation
-│   │   └── AppNavigation.kt     # Compose NavHost wiring Plan ↔ Add/Edit
+│   │   └── AppNavigation.kt     # Compose NavHost wiring Plan
 │   └── screens
 │       ├── AddDeviceScreen.kt   # Stateless Composable for smart add form
-│       └── PlanScreen.kt        # Stateless Composable for device list + controls
+│       └── PlanScreen.kt        # Stateless Composable for planløg and device list 
 │
 └── MainActivity.kt              # Hosts Compose and initializes the ViewModel
 ```
