@@ -53,9 +53,6 @@ com.example.minstrm
    ```
 5. **API Key**: Confirm your `OPENAI_API_KEY` is set in `local.properties`:
 
-   ```properties
-   OPENAI_API_KEY=your_api_key_here
-   ```
 6. **Rebuild & Test**: Verify the updated flow:
 
    * **AI Add**: Take or choose a photo and watch AI populate the form.
