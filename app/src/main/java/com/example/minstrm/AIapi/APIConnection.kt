@@ -28,8 +28,16 @@ suspend fun parseLLMResponse(context: Context, imageUri: Uri): DeviceInfo = with
     val imageBase64 = Base64.encodeToString(imageBytes, Base64.NO_WRAP)
 
     val systemPrompt = """
-        Du er en billedmodel, som modtager billeder af elektriske apparater …
+        Du er en billedmodel, som modtager billeder af elektriske apparater som f.eks. vaskemaskiner, kaffemaskiner, elkedler, bærbarer, powerbanks osv.
+        Din opgave er at identificere:
+        - produktnavn eller type, med en tilsvarende emoji før navnet(f.eks. 🧺 Vaskemaskine, 🚲 Elcykel, 🎧 Høretelefoner) 
+
+        - modelnavn eller nummer (hvis det kan findes, aflæses eller gættes)
+        - et kvalificeret gæt på effekt i watt (effekt), baseret på enhedens type og mærke
+        - et kvalificeret gæt på estimeret programtid i minutinterval (estimeretTid)
+
         Returnér udelukkende et JSON-objekt med disse nøgler: produkt, model, effekt, estimeretTid.
+        Hvis du ikke er helt sikker, så brug det mest sandsynlige gæt. Brug tom streng kun hvis der slet intet kan udledes.
     """.trimIndent()
 
     val messages = """
